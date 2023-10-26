@@ -1,0 +1,10 @@
+server:
+  port: 9092
+spring:
+  application:
+    name: fraud-service
+  datasource:
+    url: jdbc:h2:mem:fraud-service-db
+  h2:
+    console:
+      enabled: true

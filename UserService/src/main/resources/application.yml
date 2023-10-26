@@ -1,0 +1,10 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:h2:mem:user-service-db
+  h2:
+    console:
+      enabled: true
