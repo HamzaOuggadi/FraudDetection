@@ -8,6 +8,8 @@ spring:
   h2:
     console:
       enabled: true
+  rabbitmq:
+    addresses: localhost:5672
 eureka:
   client:
     register-with-eureka: true

@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -22,4 +24,5 @@ public class AppUser {
     private String password;
     private String address;
     private String phoneNumber;
+    private LocalDate birthDate;
 }

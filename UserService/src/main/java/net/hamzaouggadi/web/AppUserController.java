@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.hamzaouggadi.entities.AppUser;
 import net.hamzaouggadi.services.AppUserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +25,15 @@ public class AppUserController {
         return ResponseEntity.ok(appUserService.getAppUserById(appUserId));
     }
 
+    @PostMapping("/createUser")
+    public ResponseEntity<String> createAppUser(@RequestBody AppUser appUser) {
+        appUserService.createAppUser(appUser);
+        return ResponseEntity.ok("User Added Successfully");
+    }
+
+    @DeleteMapping("/deleteUser/{appUserId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long appUserId) {
+        appUserService.deleteAppUserById(appUserId);
+        return ResponseEntity.ok("User deleted successfully");
+    }
 }

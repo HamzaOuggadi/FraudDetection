@@ -32,9 +32,14 @@ public class AppUserServiceImpl implements AppUserService {
         }
     }
 
+    /**
+     * Method that will be calling RabbitMQ for acquiring the data
+     * @param appUser
+     * @return
+     */
     @Override
     public boolean checkUserFraud(AppUser appUser) {
-        return true;
+        return false;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class AppUserServiceImpl implements AppUserService {
         if (!checkUserFraud(appUser)) {
             appUserRepository.save(appUser);
         } else {
-
+            throw new RuntimeException("The User is suspected for fraudulent activities");
         }
     }
 
