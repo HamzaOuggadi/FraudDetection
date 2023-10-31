@@ -1,14 +1,11 @@
 package net.hamzaouggadi.config;
 
-import net.hamzaouggadi.messaging.Receiver;
+import net.hamzaouggadi.messaging.Consumer;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
-import org.springframework.amqp.rabbit.support.DefaultMessagePropertiesConverter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -40,13 +37,6 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setMessageConverter(new Jackson2JsonMessageConverter());
-        return factory;
-    }
-
-    @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
                                              MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
@@ -57,8 +47,10 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
+    MessageListenerAdapter listenerAdapter(Consumer consumer) {
+        MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(consumer, "getAppUser");
+        messageListenerAdapter.setMessageConverter(jsonMessageConverter());
+        return messageListenerAdapter;
     }
 
     @Bean
@@ -67,5 +59,4 @@ public class RabbitMqConfig {
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
     }
-
 }

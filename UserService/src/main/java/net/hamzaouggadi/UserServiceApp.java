@@ -2,7 +2,6 @@ package net.hamzaouggadi;
 
 import com.github.javafaker.Faker;
 import net.hamzaouggadi.entities.AppUser;
-import net.hamzaouggadi.messaging.Sender;
 import net.hamzaouggadi.services.AppUserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,19 +31,12 @@ public class UserServiceApp {
                         .address(faker.address().fullAddress())
                         .password(faker.funnyName().name())
                         .phoneNumber(faker.phoneNumber().phoneNumber())
-                        .birthDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                        .birthDate(faker.date().birthday())
                         .build();
 
                 appUserService.createAppUser(appUser);
             }
         };
     }
-
-/*    @Bean
-    CommandLineRunner send(Sender sender) {
-        return args -> {
-            sender.sendMessage("Hello");
-        };
-    }*/
 
 }

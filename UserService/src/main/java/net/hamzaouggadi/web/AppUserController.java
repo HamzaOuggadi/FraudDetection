@@ -2,6 +2,7 @@ package net.hamzaouggadi.web;
 
 import lombok.RequiredArgsConstructor;
 import net.hamzaouggadi.entities.AppUser;
+import net.hamzaouggadi.messaging.Producer;
 import net.hamzaouggadi.services.AppUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 public class AppUserController {
 
     private final AppUserService appUserService;
+    private final Producer producer;
 
     @GetMapping
     public ResponseEntity<List<AppUser>> getAllUsers() {
@@ -35,5 +37,11 @@ public class AppUserController {
     public ResponseEntity<String> deleteUser(@PathVariable Long appUserId) {
         appUserService.deleteAppUserById(appUserId);
         return ResponseEntity.ok("User deleted successfully");
+    }
+
+    @PostMapping("/sendUser")
+    public ResponseEntity<String> sendUser(@RequestBody AppUser appUser) {
+        producer.sendAppUser(appUser);
+        return ResponseEntity.ok("User Sent Successfully.");
     }
 }
