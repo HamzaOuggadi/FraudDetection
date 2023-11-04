@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class AppUserDto {
+    private Long id;
     private String fullName;
     private String email;
     private String password;

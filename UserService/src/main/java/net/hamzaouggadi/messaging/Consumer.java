@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Consumer {
 
-    @RabbitListener(queues = {RabbitMqConfig.QUEUE_NAME})
+    @RabbitListener(queues = RabbitMqConfig.QUEUE_NAME)
     public void getAppUser(AppUser appUser) {
         System.out.println("Message : AppUser " + appUser);
     }
